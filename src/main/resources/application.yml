@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/毕设2?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false
+    username: root
+    password: 19990701
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.graduate.project.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  file:
+    path: E:/RiZhi
+
+jwt:
+  #  JWT 存储的请求头
+  tokenHeader: Authorization
+  #  JWT 加解密使用的秘钥
+  secret: yeb-secret
+  #  JWT 的超期限时间 60*60*24 s
+  expiration: 14400
+  #  JWT 负载中拿到开头
+  tokenHead: Bearer
+
+server:
+  port: 8989
+
+
+
+
+
+
