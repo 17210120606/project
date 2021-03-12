@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.graduate.project.TeacherManage.teacher_dao.I_Teacher_Course_Dao">
+    <resultMap id="BaseResultMap" type="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_Table">
+    </resultMap>
+
+    <!--1、查询课程  根据教师编号-->
+    <select id="Teacher_Course_Select" resultMap="BaseResultMap" parameterType="java.lang.String">
+         select * from Teacher_Course where TeacherNo=#{TeacherNo}
+    </select>
+
+    <!--2、 创建课程  直接插入创建课程的实体类-->
+    <insert id="Teacher_Course_Insert"  parameterType="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_Table">
+        insert into Teacher_Course values (#{CourseNo},#{CourseName},#{CourseCreatorNo},#{CourseCreatorName},#{CourseStartTime},#{CourseStopTime},#{PassRequired})
+    </insert>
+
+
+    <!--3、 修改课程 插入新的实体类-->
+    <update id="Teacher_Course_Update" parameterType="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_Table">
+        update Teacher_Info set CourseName=#{CourseName},
+                                CourseStartTime=#{CourseStartTime},
+                                CourseStopTime=#{CourseStopTime},
+                                PassRequired=#{PassRequired}
+         where CourseCreatorNo=#{CourseCreatorNo} and CourseNo=#{CourseNo} and CourseCreatorName=#{CourseCreatorName}
+    </update>
+
+
+    <!--4、删除课程  根据教师编号和课程编号-->
+    <delete id="Teacher_Course_Delete" parameterType="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_Table">
+        delete from Teacher_Info where CourseCreatorNo=#{TeacherNo} and CourseNo=#{CourseNo}
+    </delete>
+
+
+
+
+
+
+
+</mapper>
+
+
+

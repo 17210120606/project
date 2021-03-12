@@ -2,7 +2,9 @@ package com.graduate.project.TeacherManage.teacher_entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @ApiModel(value = "对应Teacher_Info表；用于教师登录",description = "")  // swag 核心
