@@ -6,7 +6,7 @@
 
     <!--1、查询课程  根据教师编号-->
     <select id="Teacher_Course_Select" resultMap="BaseResultMap" parameterType="java.lang.String">
-         select * from Teacher_Course where TeacherNo=#{TeacherNo}
+         select * from Teacher_Course where CourseCreatorNo=#{TeacherNo}
     </select>
 
     <!--2、 创建课程  直接插入创建课程的实体类-->
@@ -17,7 +17,7 @@
 
     <!--3、 修改课程 插入新的实体类-->
     <update id="Teacher_Course_Update" parameterType="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_Table">
-        update Teacher_Info set CourseName=#{CourseName},
+        update Teacher_Course set CourseName=#{CourseName},
                                 CourseStartTime=#{CourseStartTime},
                                 CourseStopTime=#{CourseStopTime},
                                 PassRequired=#{PassRequired}
@@ -27,7 +27,7 @@
 
     <!--4、删除课程  根据教师编号和课程编号-->
     <delete id="Teacher_Course_Delete" parameterType="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_Table">
-        delete from Teacher_Info where CourseCreatorNo=#{TeacherNo} and CourseNo=#{CourseNo}
+        delete from Teacher_Course where CourseCreatorNo=#{TeacherNo} and CourseNo=#{CourseNo}
     </delete>
 
 

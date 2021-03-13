@@ -5,14 +5,14 @@ import com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_Table;
 import com.graduate.project.TeacherManage.teacher_service.I_Teacher_Course_Service;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,8 +42,8 @@ public class Teacher_Course_Controller {
                                       @RequestParam("课程名称") String CourseName,
                                       @RequestParam("教师编号") String CourseCreateNo,
                                       @RequestParam("教师名称") String CourseCreateName,
-                                      @RequestParam("课程开始时间") Timestamp CourseStartTime,
-                                      @RequestParam("课程结束时间") Timestamp CourseStopTime,
+                                      @RequestParam("课程开始时间") @ApiParam(value = "年-月-日 时-分-秒 如：2020-02-03 12:08:08") String CourseStartTime,
+                                      @RequestParam("课程结束时间") String CourseStopTime,
                                       @RequestParam("课程及格最低要求") Integer PassRequired,
                                       HttpSession session){
         Teacher_Course_Table teacherCourseTable = new Teacher_Course_Table();
@@ -51,8 +51,8 @@ public class Teacher_Course_Controller {
         teacherCourseTable.setCourseName(CourseName);
         teacherCourseTable.setCourseCreatorNo(CourseCreateNo);
         teacherCourseTable.setCourseCreatorName(CourseCreateName);
-        teacherCourseTable.setCourseStartTime(CourseStartTime);
-        teacherCourseTable.setCourseStopTime(CourseStopTime);
+      //  teacherCourseTable.setCourseStartTime(CourseStartTime);
+      //  teacherCourseTable.setCourseStopTime(CourseStopTime);
         teacherCourseTable.setPassRequired(PassRequired);
 
         boolean flag = i_teacher_course_service.Teacher_Course_Insert(teacherCourseTable);
@@ -107,4 +107,10 @@ public class Teacher_Course_Controller {
         }
         return Public_Result.error("课程删除失败");
     }
+
+
+
+
+
+
 }
