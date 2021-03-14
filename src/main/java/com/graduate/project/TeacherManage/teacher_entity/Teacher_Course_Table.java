@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 @ApiModel(value = "对应Teacher_Course表；用于创建课程",description = "")  // swag 核心
@@ -26,10 +27,10 @@ public class Teacher_Course_Table {
     private String CourseCreatorName;
 
     @ApiModelProperty(value = "教师最初创建此课程的课程开始时间")//,required = true)//true 必填
-    private Timestamp CourseStartTime;
+    private Date CourseStartTime;
 
     @ApiModelProperty(value = "教师最初创建此课程的课程结束时间")//,required = true)//true 必填
-    private Timestamp CourseStopTime;
+    private Date CourseStopTime;
 
     @ApiModelProperty(value = "教师最初创建此课程的课程及格代码要求")//,required = true)//true 必填
     private Integer PassRequired;

@@ -1,6 +1,8 @@
 package com.graduate.project.TeacherManage.teacher_controller;
 
+import com.graduate.project.PublicConfig.DatetimeConfig;
 import com.graduate.project.PublicConfig.Public_Result;
+import com.graduate.project.PublicConfig.TimeConfig;
 import com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_Table;
 import com.graduate.project.TeacherManage.teacher_service.I_Teacher_Course_Service;
 import io.swagger.annotations.Api;
@@ -14,6 +16,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -34,6 +37,8 @@ public class Teacher_Course_Controller {
     }
 
 
+    /***  都能 修改 成功了，，但在 时间处理上还存在 转换与判断得问题*/
+
     /***  2、 创建课程  直接插入创建课程的实体类
     、 * @param teacher_course****/
     @ApiOperation(value = "教师新增课程信息 ")
@@ -42,17 +47,33 @@ public class Teacher_Course_Controller {
                                       @RequestParam("课程名称") String CourseName,
                                       @RequestParam("教师编号") String CourseCreateNo,
                                       @RequestParam("教师名称") String CourseCreateName,
-                                      @RequestParam("课程开始时间") @ApiParam(value = "年-月-日 时-分-秒 如：2020-02-03 12:08:08") String CourseStartTime,
+                                      @RequestParam("课程开始时间")  String CourseStartTime,
                                       @RequestParam("课程结束时间") String CourseStopTime,
                                       @RequestParam("课程及格最低要求") Integer PassRequired,
                                       HttpSession session){
+/*        Date CourseStartTime2 = TimeConfig.Timedes(CourseStartTime);
+        Date CourseStopTime2 = TimeConfig.Timedes(CourseStopTime);*/
+
+
+        Date StartTime = (Date) DatetimeConfig.Timedes(CourseStartTime);
+        Date StopTime = (Date) DatetimeConfig.Timedes(CourseStopTime);
+
+        if (StartTime.getTime() >= StopTime.getTime()){
+            return Public_Result.error("开始时间不能在结束时间之前！");
+        }
+        Date now = new Date();
+        if (StartTime.getTime() < now.getTime()){
+            return Public_Result.error("开始时间不能在当前时间之前，不能在历史中创建课程");
+        }
+
+
         Teacher_Course_Table teacherCourseTable = new Teacher_Course_Table();
         teacherCourseTable.setCourseNo(CourseNo);
         teacherCourseTable.setCourseName(CourseName);
         teacherCourseTable.setCourseCreatorNo(CourseCreateNo);
         teacherCourseTable.setCourseCreatorName(CourseCreateName);
-      //  teacherCourseTable.setCourseStartTime(CourseStartTime);
-      //  teacherCourseTable.setCourseStopTime(CourseStopTime);
+        teacherCourseTable.setCourseStartTime(StartTime);
+        teacherCourseTable.setCourseStopTime(StopTime);
         teacherCourseTable.setPassRequired(PassRequired);
 
         boolean flag = i_teacher_course_service.Teacher_Course_Insert(teacherCourseTable);
@@ -71,17 +92,19 @@ public class Teacher_Course_Controller {
                                       @RequestParam("新的课程名称") String CourseName,
                                       @RequestParam("教师编号") String CourseCreateNo,
                                       @RequestParam("教师名称") String CourseCreateName,
-                                      @RequestParam("新的课程开始时间") Timestamp CourseStartTime,
-                                      @RequestParam("新的课程结束时间") Timestamp CourseStopTime,
+                                      @RequestParam("新的课程开始时间") String CourseStartTime,
+                                      @RequestParam("新的课程结束时间") String CourseStopTime,
                                       @RequestParam("新的课程及格最低要求") Integer PassRequired,
                                       HttpSession session){
+        Date CourseStartTime2 = TimeConfig.Timedes(CourseStartTime);
+        Date CourseStopTime2 = TimeConfig.Timedes(CourseStopTime);
         Teacher_Course_Table teacherCourseTable = new Teacher_Course_Table();
         teacherCourseTable.setCourseNo(CourseNo);
         teacherCourseTable.setCourseName(CourseName);
         teacherCourseTable.setCourseCreatorNo(CourseCreateNo);
         teacherCourseTable.setCourseCreatorName(CourseCreateName);
-        teacherCourseTable.setCourseStartTime(CourseStartTime);
-        teacherCourseTable.setCourseStopTime(CourseStopTime);
+        teacherCourseTable.setCourseStartTime(CourseStartTime2);
+        teacherCourseTable.setCourseStopTime(CourseStopTime2);
         teacherCourseTable.setPassRequired(PassRequired);
 
         boolean flag = i_teacher_course_service.Teacher_Course_Update(teacherCourseTable);
