@@ -19,4 +19,7 @@ public interface I_Teacher_Course_Dao {
     /***  4、删除课程  根据教师编号和课程编号***/
     public boolean Teacher_Course_Delete(String TeacherNo, String CourseNo);
 
+    /***  5、判断 输入的课程编号是否 存在，主键，不能重复***/
+    public boolean Teacher_Course_JudgeCourseNo(String CourseNo);
+
 }

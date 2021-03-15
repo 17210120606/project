@@ -44,4 +44,12 @@ public class Teacher_Course_Service implements I_Teacher_Course_Service {
         //return false;
         return i_teacher_course_dao.Teacher_Course_Delete(TeacherNo, CourseNo);
     }
+
+    /***  5、判断 输入的课程编号是否 存在，主键，不能重复
+     * @param CourseNo***/
+    @Override
+    public boolean Teacher_Course_JudgeCourseNo(String CourseNo) {
+        //return false;
+        return i_teacher_course_dao.Teacher_Course_JudgeCourseNo(CourseNo);
+    }
 }

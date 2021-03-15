@@ -38,4 +38,13 @@ public class Teacher_Info_Service implements I_Teacher_Info_Service {
         //return false;
         return i_teacher_info_dao.Teacher_Info_UpdateInfo(TeacherNo, OldTeacherPassword, NewTeacherPassword);
     }
+
+    /**** 4、创建课程使用，判断教师输入的 教师编号 与其 名称 是否对应
+     * @param TeacherNo
+     * @param TeacherName******/
+    @Override
+    public boolean Teacher_Info_Judge(String TeacherNo, String TeacherName) {
+        //return false;
+        return i_teacher_info_dao.Teacher_Info_Judge(TeacherNo, TeacherName);
+    }
 }

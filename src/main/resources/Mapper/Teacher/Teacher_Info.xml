@@ -20,7 +20,10 @@
         update Teacher_Info set TeacherPassword=#{NewTeacherPassword} where TeacherNo=#{TeacherNo} and TeacherPassword=#{OldTeacherPassword}
     </update>
 
-
+    <!--4、创建课程使用，判断教师输入的 教师编号 与其 名称 是否对应  -->
+    <select id="Teacher_Info_Judge" resultType="java.lang.Boolean" parameterType="com.graduate.project.TeacherManage.teacher_entity.Teacher_Info_Table">
+        select count(*) from Teacher_Info where TeacherNo=#{TeacherNo} and TeacherName=#{TeacherName}
+    </select>
 
 
 

@@ -31,7 +31,10 @@
     </delete>
 
 
-
+    <!--5、判断 输入的课程编号是否 存在，主键，不能重复  -->
+    <select id="Teacher_Course_JudgeCourseNo" resultType="java.lang.Boolean" parameterType="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_Table">
+        select count(*) from Teacher_Course where CourseNo=#{CourseNo}
+    </select>
 
 
 
