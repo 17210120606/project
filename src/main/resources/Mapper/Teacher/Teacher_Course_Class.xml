@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.graduate.project.TeacherManage.teacher_dao.I_Teacher_Course_Class_Dao">
+    <resultMap id="BaseResultMap" type="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_Class_Table">
+    </resultMap>
+
+    <!--1、查询课程下 所有的班级 根据  教师编号 和 课程编号-->
+    <select id="Teacher_Course_Class_Select" resultMap="BaseResultMap" parameterType="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_Table">
+         select * from Teacher_Course_Class where CourseCreatorNo=#{TeacherNo} and CourseNo=#{CourseNo}
+    </select>
+
+    <!--2、 创建课程下的班级  直接插入创建课程下班级的实体类-->
+    <insert id="Teacher_Course_Class_Insert"  parameterType="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_Class_Table">
+        insert into Teacher_Course_Class values (#{CourseNo},#{CourseName},#{CourseCreatorNo},#{CourseCreatorName},#{CourseClassNo},#{CourseClassName})
+    </insert>
+
+
+    <!--3、 修改课程下的班级 ，插入 新的 课程下班级的实体类-->
+    <update id="Teacher_Course_Class_Update" parameterType="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_Class_Table">
+        update Teacher_Course_Class set CourseClassNo=#{CourseClassNo},
+                                        CourseClassName=#{CourseClassName}
+         where CourseCreatorNo=#{CourseCreatorNo} and CourseNo=#{CourseNo} and CourseCreatorName=#{CourseCreatorName} and CourseName=#{CourseName}
+    </update>
+
+
+    <!--4、删除课程下的班级  根据 教师编号 和 课程编号 以及 班级号-->
+    <delete id="Teacher_Course_Class_Delete" parameterType="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_Class_Table">
+        delete from Teacher_Course_Class where CourseCreatorNo=#{TeacherNo} and CourseNo=#{CourseNo} and CourseClassNo=#{CourseClassNo}
+    </delete>
+
+
+    <!--5、判断 输入的课程编号,教师编号和班级号 ，查看该班级是否 存在，主键  -->
+    <select id="Teacher_Course_Class_JudgeClassNo" resultType="java.lang.Boolean" parameterType="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_Class_Table">
+        select count(*) from Teacher_Course_Class where CourseNo=#{CourseNo} and CourseCreatorNo=#{TeacherNo} and CourseClassNo=#{CourseClassNo}
+    </select>
+
+
+
+
+</mapper>
+
+
+

@@ -38,6 +38,66 @@ public class Teacher_Course_Controller {
     }
 
 
+    /***  1.2、查询课程  根据教师编号,,未开始的
+     * @param TeacherNo***/
+    @ApiOperation(value = "教师查询构建的尚未开始课程信息 ")
+    @RequestMapping(value = "/teacher/course/select/notdo", method = RequestMethod.GET)
+    public Object TeacherCourseSelectNotdo(@RequestParam("教师编号") String TeacherNo, HttpSession session){
+        /******  构建 返回结果 列表 list  ******/
+        List<Teacher_Course_Table> list = new ArrayList<Teacher_Course_Table>();
+        list = i_teacher_course_service.Teacher_Course_Select(TeacherNo);
+
+        List<Teacher_Course_Table> listnotdo = new ArrayList<Teacher_Course_Table>();
+        Date now = new Date();  //  获取当前时间
+        for (Teacher_Course_Table info:list){
+            if (info.getCourseStartTime().getTime() > now.getTime()){
+                listnotdo.add(info);
+            }
+        }
+        return Public_Result.success("查询成功！！",listnotdo);
+    }
+
+    /***  1.3、查询课程  根据教师编号,,开始中的
+     * @param TeacherNo***/
+    @ApiOperation(value = "教师查询构建的正在进行中课程信息 ")
+    @RequestMapping(value = "/teacher/course/select/doing", method = RequestMethod.GET)
+    public Object TeacherCourseSelectDoing(@RequestParam("教师编号") String TeacherNo, HttpSession session){
+        /******  构建 返回结果 列表 list  ******/
+        List<Teacher_Course_Table> list = new ArrayList<Teacher_Course_Table>();
+        list = i_teacher_course_service.Teacher_Course_Select(TeacherNo);
+
+        List<Teacher_Course_Table> listdoing = new ArrayList<Teacher_Course_Table>();
+        Date now = new Date();  //  获取当前时间
+        for (Teacher_Course_Table info:list){
+            if ((info.getCourseStartTime().getTime() < now.getTime()) && (info.getCourseStopTime().getTime() > now.getTime())){
+                listdoing.add(info);
+            }
+        }
+        return Public_Result.success("查询成功！！",listdoing);
+    }
+
+    /***  1.4、查询课程  根据教师编号,,已结束的
+     * @param TeacherNo***/
+    @ApiOperation(value = "教师查询构建的已经结束了的课程信息 ")
+    @RequestMapping(value = "/teacher/course/select/done", method = RequestMethod.GET)
+    public Object TeacherCourseSelectDone(@RequestParam("教师编号") String TeacherNo, HttpSession session){
+        /******  构建 返回结果 列表 list  ******/
+        List<Teacher_Course_Table> list = new ArrayList<Teacher_Course_Table>();
+        list = i_teacher_course_service.Teacher_Course_Select(TeacherNo);
+
+        List<Teacher_Course_Table> listdone = new ArrayList<Teacher_Course_Table>();
+        Date now = new Date();  //  获取当前时间
+        for (Teacher_Course_Table info:list){
+            if (info.getCourseStopTime().getTime() < now.getTime()){
+                listdone.add(info);
+            }
+        }
+        return Public_Result.success("查询成功！！",listdone);
+    }
+
+
+
+
     /***  都能 修改 成功了，，但在 时间处理上还存在 转换与判断得问题*/
 
     /***  2、 创建课程  直接插入创建课程的实体类
