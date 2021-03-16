@@ -21,6 +21,7 @@ public interface I_Teacher_Course_Class_Dao {
     public boolean Teacher_Course_Class_Delete(String CourseCreatorNo, String CourseNo, String CourseClassNo);
 
     /***  5、判断 输入的课程编号,教师编号和班级号 ，查看该班级是否 存在，主键   ***/
+    /***  使用场景 【1、创建 课程下的班级时，检测 改班级 是否已经存在】*/
     public boolean Teacher_Course_Class_JudgeClassNo(String CourseCreatorNo, String CourseNo, String CourseClassNo);
 
 }

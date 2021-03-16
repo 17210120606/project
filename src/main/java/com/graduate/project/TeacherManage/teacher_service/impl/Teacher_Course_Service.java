@@ -52,4 +52,13 @@ public class Teacher_Course_Service implements I_Teacher_Course_Service {
         //return false;
         return i_teacher_course_dao.Teacher_Course_JudgeCourseNo(CourseNo);
     }
+
+    /***  6、判断 输入的 课程编号 与 教师编号，判断该课程 是否 存在   用于创建班级用
+     * @param CourseNo
+     * @param TeacherNo***/
+    @Override
+    public boolean Teacher_Course_JudgeCourseTrue(String CourseNo, String TeacherNo) {
+        //return false;
+        return i_teacher_course_dao.Teacher_Course_JudgeCourseTrue(CourseNo, TeacherNo);
+    }
 }

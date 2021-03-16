@@ -17,5 +17,6 @@ public interface I_Teacher_Info_Dao {
     public boolean Teacher_Info_UpdateInfo(String TeacherNo, String OldTeacherPassword, String NewTeacherPassword);
 
     /**** 4、创建课程使用，判断教师输入的 教师编号 与其 名称 是否对应  ******/
+    /****  注： 使用场景【1、创建课程时检测 教师存在性！   1、创建班级时检测 教师存在性！】*/
     public boolean Teacher_Info_Judge(String TeacherNo, String TeacherName);
 }
