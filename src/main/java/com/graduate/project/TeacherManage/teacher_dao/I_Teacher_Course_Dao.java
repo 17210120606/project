@@ -23,6 +23,6 @@ public interface I_Teacher_Course_Dao {
     public boolean Teacher_Course_JudgeCourseNo(String CourseNo);
 
     /***  6、判断 输入的 课程编号 与 教师编号，判断该课程 是否 存在   用于创建班级用***/
-    public boolean Teacher_Course_JudgeCourseTrue(String CourseNo, String TeacherNo);
+    public boolean Teacher_Course_JudgeCourseTrue(String CourseNo, String CourseName, String TeacherNo);
 
 }

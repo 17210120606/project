@@ -30,7 +30,7 @@
 
     <!--5、判断 输入的课程编号,教师编号和班级号 ，查看该班级是否 存在，主键  -->
     <select id="Teacher_Course_Class_JudgeClassNo" resultType="java.lang.Boolean" parameterType="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_Class_Table">
-        select count(*) from Teacher_Course_Class where CourseNo=#{CourseNo} and CourseCreatorNo=#{TeacherNo} and CourseClassNo=#{CourseClassNo}
+        select count(*) from Teacher_Course_Class where CourseNo=#{CourseNo} and CourseCreatorNo=#{CourseCreatorNo} and CourseClassNo=#{CourseClassNo}
     </select>
 
 

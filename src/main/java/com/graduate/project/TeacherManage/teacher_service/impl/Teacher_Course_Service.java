@@ -57,8 +57,8 @@ public class Teacher_Course_Service implements I_Teacher_Course_Service {
      * @param CourseNo
      * @param TeacherNo***/
     @Override
-    public boolean Teacher_Course_JudgeCourseTrue(String CourseNo, String TeacherNo) {
+    public boolean Teacher_Course_JudgeCourseTrue(String CourseNo, String CourseName, String TeacherNo) {
         //return false;
-        return i_teacher_course_dao.Teacher_Course_JudgeCourseTrue(CourseNo, TeacherNo);
+        return i_teacher_course_dao.Teacher_Course_JudgeCourseTrue(CourseNo, CourseName, TeacherNo);
     }
 }

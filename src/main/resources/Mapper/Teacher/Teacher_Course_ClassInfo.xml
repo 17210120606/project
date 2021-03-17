@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.graduate.project.TeacherManage.teacher_dao.I_Teacher_Course_ClassInfo_Dao">
+    <resultMap id="BaseResultMap" type="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_ClassInfo_Table">
+    </resultMap>
+
+    <!--1、查询  课程班级下 所有学生 的信息  [课程编号，教师编号，班级号]-->
+    <select id="Teacher_Course_ClassInfo_SelectAll" resultMap="BaseResultMap" parameterType="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_ClassInfo_Table">
+         select * from Teacher_Course_ClassInfo where CourseNo=#{CourseNo} and CourseCreatorNo=#{CourseCreatorNo} and CourseClassNo=#{CourseClassNo}
+    </select>
+
+
+    <!--2、查询  课程班级下 具体 组中 的 所有学生 的信息  [课程编号，教师编号，班级号，小组号]-->
+    <select id="Teacher_Course_ClassInfo_SelectGroup" resultMap="BaseResultMap" parameterType="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_ClassInfo_Table">
+         select * from Teacher_Course_ClassInfo where  CourseNo=#{CourseNo} and CourseCreatorNo=#{CourseCreatorNo} and CourseClassNo=#{CourseClassNo} and CourseClassGroupNo=#{CourseClassGroupNo}
+    </select>
+
+
+    <!--3、 新增  课程班级下 具体学生的信息， 其中 组别 可以为空  后续也会涉及 批量新增-->
+    <insert id="Teacher_Course_ClassInfo_Insert"  parameterType="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_ClassInfo_Table">
+        insert into Teacher_Course_ClassInfo
+        values (#{CourseNo},#{CourseName},#{CourseCreatorNo},#{CourseCreatorName},
+                #{CourseClassNo},#{CourseClassName},#{CourseClassGroupNo},#{CourseClassGroupName},
+                #{CourseClassStudentNo},#{CourseClassStudentName},#{StudentFinalGrade})
+    </insert>
+
+
+    <!--4、 修改  课程班级下 具体学生 的信息,能修改的内容为：  学生的小组信息-->
+    <update id="Teacher_Course_ClassInfo_Update" parameterType="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_ClassInfo_Table">
+        update Teacher_Course_ClassInfo set StudentFinalGrade=#{StudentFinalGrade}
+         where CourseCreatorNo=#{CourseCreatorNo} and CourseNo=#{CourseNo} and CourseClassNo=#{CourseClassNo} and CourseClassGroupNo=#{CourseClassGroupNo} and CourseClassStudentNo=#{CourseClassStudentNo}
+    </update>
+
+
+    <!--5、删除  课程班级下 具体学生 的信息  [课程编号，教师编号，班级号，学生学号]-->
+    <delete id="Teacher_Course_ClassInfo_Delete" parameterType="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_ClassInfo_Table">
+        delete from Teacher_Course_ClassInfo where CourseCreatorNo=#{CourseCreatorNo} and CourseNo=#{CourseNo} and CourseClassNo=#{CourseClassNo} and CourseClassStudentNo=#{CourseClassStudentNo}
+    </delete>
+
+
+    <!--6.3、判断在此课程班级下的学生学号是否 唯一  CourseNo，CourseCreatorNo，CourseClassNo，CourseClassStudentNo；  -->
+    <select id="Teacher_Course_ClassInfo_JudgeStudentTrue" resultType="java.lang.Boolean" parameterType="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_ClassInfo_Table">
+        select count(*) from Teacher_Course_ClassInfo where CourseNo=#{CourseNo} and CourseCreatorNo=#{CourseCreatorNo} and CourseClassNo=#{CourseClassNo} and CourseClassStudentNo=#{CourseClassStudentNo}
+    </select>
+
+
+<!--    &lt;!&ndash;6.4、判断  组别 是否  与 组号一一对应  ；；属于 TeacherCourseClassInfo 表  CourseNo，CourseCreatorNo，CourseClassNo，CourseClassStudentNo；  &ndash;&gt;
+    <select id="Teacher_Course_ClassInfo_JudgeGroupTrue" resultType="java.lang.Boolean" parameterType="com.graduate.project.TeacherManage.teacher_entity.Teacher_Course_ClassInfo_Table">
+        select count(*) from Teacher_Course_ClassInfo where CourseNo=#{CourseNo} and CourseCreatorNo=#{CourseCreatorNo} and CourseClassNo=#{CourseClassNo} and CourseClassGroupNo=#{CourseClassGroupNo} and CourseClassGroupName=#{CourseClassGroupName}
+    </select>-->
+
+
+</mapper>
+
+
+

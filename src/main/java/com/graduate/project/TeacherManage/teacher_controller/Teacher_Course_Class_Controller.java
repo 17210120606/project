@@ -57,16 +57,19 @@ public class Teacher_Course_Class_Controller {
                                            @RequestParam("课程班级名称") String CourseClassName,
                                            HttpSession session){
         /*****  开始 检验 输入 信息的正确性     Begin    ****/
-        /***  1、验证 课程编号是否 存在，即该课程是否存在  ******/
-        boolean Course_TrueOrFalse = i_teacher_course_service.Teacher_Course_JudgeCourseTrue(CourseNo,CourseCreatorNo);
-        if (Course_TrueOrFalse == false){
-            return Public_Result.error("您尚未创建该，该课程不存在");
-        }
-        /***  2、验证 该教师是否存在  ******/
+
+        /***  1、先验证 该教师是否存在  ******/
         boolean Teacher_TrueOrFalse = i_teacher_info_service.Teacher_Info_Judge(CourseCreatorNo,CourseCreatorName);
         if (Teacher_TrueOrFalse == false){
             return Public_Result.error("您输入的身份信息不正确，请重新输入");
         }
+
+        /***  2、再验证 课程编号是否 存在，即该课程是否存在  ******/
+        boolean Course_TrueOrFalse = i_teacher_course_service.Teacher_Course_JudgeCourseTrue(CourseNo,CourseName,CourseCreatorNo);
+        if (Course_TrueOrFalse == false){
+            return Public_Result.error("您尚未创建该，该课程不存在");
+        }
+
         /***  3、验证 在此课程下，创建的班级  班号 是否重复 ******/
         boolean Class_TrueOrFalse = i_teacher_course_class_service.Teacher_Course_Class_JudgeClassNo(CourseCreatorNo, CourseNo, CourseClassNo);
         if (Class_TrueOrFalse){

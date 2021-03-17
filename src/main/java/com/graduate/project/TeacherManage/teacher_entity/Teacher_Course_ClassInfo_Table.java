@@ -42,5 +42,8 @@ public class Teacher_Course_ClassInfo_Table {
     @ApiModelProperty(value = "教师在此课程下，创建相应的教学班级内部的小组中的具体学生的姓名")//,required = true)//true 必填
     private String CourseClassStudentName;
 
+    @ApiModelProperty(value = "教师在此课程下，创建相应的教学班级内部的小组中的具体学生的姓名的最终成绩")//,required = true)//true 必填
+    private Double StudentFinalGrade;
+
 
 }
